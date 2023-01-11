@@ -1,37 +1,27 @@
 const express = require("express");
 const Workout = require("../models/workoutModel");
+const {
+  getAllWorkouts,
+  getWorkout,
+  createWorkout,
+  deleteWorkout,
+  updateWorkout,
+} = require("../controllers/workoutController");
 
 //Router
 const router = express.Router();
 
 // Routes
 // Get All Workouts
-router.get("/", (req, res) => {
-  res.json({ message: "Get all workouts" });
-});
+router.get("/", getAllWorkouts);
 // Get a single Workout
-router.get("/:id", (req, res) => {
-  res.json({ message: "Get a single workout" });
-});
+router.get("/:id", getWorkout);
 // Post a new Workout
-router.post("/", async (req, res) => {
-  const { title, reps, load } = req.body;
-
-  try {
-    const workout = await Workout.create({ title, reps, load });
-    res.status(200).json(workout);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+router.post("/", createWorkout);
 // Delete a Workout
-router.delete("/:id", (req, res) => {
-  res.json({ message: "Delete a workout" });
-});
+router.delete("/:id", deleteWorkout);
 // Update a Workout
-router.patch("/:id", (req, res) => {
-  res.json({ message: "Update a workout" });
-});
+router.patch("/:id", updateWorkout);
 
 // Export the Router
 module.exports = router;
